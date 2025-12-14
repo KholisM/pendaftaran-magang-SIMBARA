@@ -36,8 +36,8 @@
     <div class="flex items-center space-x-3">
         <img src="{{ asset('assets/img/logojabar.png') }}" alt="Logo" class="h-10 w-10 object-contain">
         <div>
-            <h1 class="text-lg font-semibold text-gray-900">Dinas Komunikasi dan Informatika</h1>
-            <p class="text-sm text-gray-700">Kab. Indragiri Hulu</p>
+            <h1 class="text-lg font-semibold text-gray-900">Dinas Sosial</h1>
+            <p class="text-sm text-gray-700"> Kota Bogor </p>
         </div>
     </div>        
     

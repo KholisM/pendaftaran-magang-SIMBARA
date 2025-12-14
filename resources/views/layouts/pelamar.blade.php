@@ -24,7 +24,7 @@
         }
 
     </style>
-    @stack('styles')
+    @stack('styles') 
 </head>
     <nav class="fixed top-0 left-0 right-0 bg-white shadow-md px-6 py-3 flex items-center justify-between z-50">
         <!-- Logo & Title -->
