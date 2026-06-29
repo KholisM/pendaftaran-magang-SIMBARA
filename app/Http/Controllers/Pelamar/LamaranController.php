@@ -14,6 +14,12 @@ class LamaranController extends Controller
 {
     public function create()
     {
+        $pengaturan = \App\Models\Pengaturan::first();
+
+if (!$pengaturan || !$pengaturan->magang_dibuka) {
+    return redirect()->back()
+        ->with('error', 'Pendaftaran magang sedang ditutup');
+}
         $user = auth()->user()->load('biodata');
         
         // Cek lamaran terakhir user
@@ -29,6 +35,26 @@ class LamaranController extends Controller
 
         return view('pelamar.formulir', compact('user', 'lastLamaran'));
     }
+
+    public function destroy($id)
+{
+    $lamaran = Lamaran::with(['posisi'])->findOrFail($id);
+
+    // Hanya boleh hapus jika belum diterima / belum mulai
+    if (!in_array($lamaran->status, ['pending','revisi','ditolak'])) {
+        return back()->with('info', 'Lamaran tidak dapat dihapus.');
+    }
+
+    // Hapus file lampiran jika ada
+    if ($lamaran->surat_diterima_path && Storage::exists($lamaran->surat_diterima_path)) {
+        Storage::delete($lamaran->surat_diterima_path);
+    }
+
+    // Hapus data lamaran
+    $lamaran->delete();
+
+    return back()->with('success', 'Lamaran berhasil dihapus.');
+}
 
     public function store(Request $request)
     {
@@ -125,13 +151,14 @@ if ($request->filled('tanggal_selesai')) {
     }
 
     public function status()
-    {
-        $lamarans = Lamaran::where('user_id', auth()->id())
-            ->latest()
-            ->get();
+{
+    $lamarans = Lamaran::with('posisi') // WAJIB INI
+        ->where('user_id', auth()->id())
+        ->latest()
+        ->get();
 
-        return view('pelamar.status', compact('lamarans'));
-    }
+    return view('pelamar.status', compact('lamarans'));
+}
 
     public function rekap()
     {
@@ -154,29 +181,31 @@ if ($request->filled('tanggal_selesai')) {
         
         return view('pelamar.detail-lamaran', compact('lamaran'));
     }
-    public function downloadSurat($id, $type)
-    {
-        $lamaran = Lamaran::findOrFail($id);
-        
-        // Check if the logged-in user owns this application
-        if ($lamaran->user_id !== auth()->id()) {
-            return back()->with('error', 'Unauthorized access');
-        }
-    
-        // Get the correct file path based on type
-        $filePath = match($type) {
-            'surat_pengantar' => $lamaran->surat_pengantar_path,
-            'cv' => $lamaran->cv_path,
-            'surat_diterima' => $lamaran->surat_diterima_path,
-            'surat_ditolak' => $lamaran->surat_ditolak_path,
-            'sertifikat' => $lamaran->sertifikat_path,
-            default => null
-        };
-    
-        if ($filePath && Storage::exists($filePath)) {
-            return response()->download(storage_path('app/private/' . $filePath));
-        }
-    
-        return redirect()->back()->with('error', 'File tidak ditemukan.');
+   public function downloadSurat($id, $type)
+{
+    $lamaran = Lamaran::findOrFail($id);
+
+    if ($lamaran->user_id !== auth()->id()) {
+        return back()->with('error', 'Unauthorized access');
     }
+
+    $filePath = match ($type) {
+        'surat_pengantar' => $lamaran->surat_pengantar_path,
+        'cv' => $lamaran->cv_path,
+        'surat_diterima' => $lamaran->surat_diterima_path,
+        'surat_ditolak' => $lamaran->surat_ditolak_path,
+        'sertifikat' => $lamaran->sertifikat_path,
+        default => null,
+    };
+
+    if (!$filePath) {
+        return back()->with('error', 'File tidak tersedia.');
+    }
+
+    if (!Storage::disk('public')->exists($filePath)) {
+        return back()->with('error', 'File tidak ditemukan.');
+    }
+
+    return Storage::disk('public')->download($filePath);
+}
 }

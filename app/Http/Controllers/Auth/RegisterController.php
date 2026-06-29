@@ -37,7 +37,22 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+           'email' => [
+    'required',
+    'string',
+    'email',
+    'max:255',
+    'unique:users',
+    function ($attribute, $value, $fail) {
+        $allowed = ['gmail.com', 'yahoo.com'];
+
+        $domain = substr(strrchr($value, "@"), 1);
+
+        if (!in_array($domain, $allowed)) {
+            $fail('Email harus menggunakan @gmail.com atau @yahoo.com.');
+        }
+    },
+],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'agree' => ['accepted'],
         ]);

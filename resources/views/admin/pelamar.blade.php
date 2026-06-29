@@ -50,6 +50,7 @@
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Jurusan</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Tanggal Mulai</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Posisi</th>
                         <th class="px-6 py-3 text-center text-xs font-semibold uppercase">Aksi</th>
                     </tr>
                 </thead>
@@ -70,7 +71,16 @@
                             <span class="px-3 py-1 text-xs font-semibold rounded-full bg-{{ $pelamar->status_color }}-200 text-{{ $pelamar->status_color }}-800">
                                 {{ $pelamar->status_label }}
                             </span>
-                        </td>                        
+                        </td>
+                        <td class="px-6 py-4 text-gray-900">
+    @if($pelamar->posisi)
+        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+            {{ $pelamar->posisi->nama_posisi }}
+        </span>
+    @else
+        <span class="text-gray-400 italic">Belum ditempatkan</span>
+    @endif
+</td>                        
                         <td class="px-6 py-4 text-center text-sm font-medium">
                             <a href="{{ route('admin.detail.pelamar', $pelamar->id) }}" 
                                class="bg-blue-500 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-blue-600 transition flex items-center justify-center">

@@ -6,7 +6,7 @@
     <title>@yield('title', 'Dashboard')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/logojabar.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/capil.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -34,9 +34,9 @@
 <nav class="fixed top-0 left-0 right-0 bg-white shadow-md px-6 py-3 flex items-center justify-between z-50">
     <!-- Logo & Title -->
     <div class="flex items-center space-x-3">
-        <img src="{{ asset('assets/img/logojabar.png') }}" alt="Logo" class="h-10 w-10 object-contain">
+        <img src="{{ asset('assets/img/capil.png') }}" alt="Logo" class="h-10 w-10 object-contain">
         <div>
-            <h1 class="text-lg font-semibold text-gray-900">Dinas Sosial</h1>
+            <h1 class="text-lg font-semibold text-gray-900">Dinas Kependudukan dan Pencatatan Sipil</h1>
             <p class="text-sm text-gray-700"> Kota Bogor </p>
         </div>
     </div>        
@@ -70,12 +70,26 @@
                             <i class="fas fa-users mr-2"></i> Data Pelamar
                         </a>
                     </li>
+                     <li class="mb-2">
+                <a href="{{ route('admin.posisi') }}" 
+                   class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.posisi*') ? 'bg-gray-200' : 'hover:bg-gray-200' }}">
+                    <i class="fas fa-briefcase mr-2"></i> Data Posisi
+                </a>
+            </li>
                     <li class="mb-2">
                         <a href="{{ route('admin.alumni') }}" 
                         class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.alumni*') ? 'bg-gray-200' : 'hover:bg-gray-200' }}">
                             <i class="fas fa-users mr-2"></i> Alumni
                         </a>
                     </li>
+                    <li>
+    <a href="{{ route('admin.pengaturan.index') }}"
+       class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-500 hover:text-white rounded-lg transition">
+        
+        <i class="fas fa-cogs mr-3"></i>
+        <span>Pengaturan Magang</span>
+    </a>
+</li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf

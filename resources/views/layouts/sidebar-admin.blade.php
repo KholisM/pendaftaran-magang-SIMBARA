@@ -18,6 +18,14 @@
                     </a>
                 </li>
                 <li class="mb-2">
+                    <a href="{{ route('admin.posisi') }}" 
+                    class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.posisir*') ? 'bg-gray-200' : 'hover:bg-gray-200' }}">
+                        <i class="fas fa-users mr-2"></i> Posisi
+                    </a>
+                </li>
+                
+            </li>
+                <li class="mb-2">
                     <a href="{{ route('admin.alumni') }}" 
                     class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.pelamar*') ? 'bg-gray-200' : 'hover:bg-gray-200' }}">
                         <i class="fas fa-users mr-2"></i> Alumni

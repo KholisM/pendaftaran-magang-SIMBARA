@@ -3,163 +3,150 @@
 @section('page_title', 'Dashboard')
 
 @section('content')
-<div class="space-y-6">
-    <!-- Welcome Card -->
-    <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
-        <h3 class="text-xl font-light">Selamat Datang,</h3>
-        <h4 class="text-3xl font-bold">{{ $admin->name ?? 'Admin' }}</h4>
-        <p class="mt-2 text-blue-100">Kelola permohonan magang dan pantau progress peserta magang</p>
+
+<div class="space-y-8">
+
+    <!-- HERO -->
+    <div class="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-3xl p-8 text-white shadow-2xl overflow-hidden">
+        <div class="relative z-10">
+            <h2 class="text-sm opacity-80">Dashboard Admin</h2>
+            <h1 class="text-4xl font-bold mt-1">{{ $admin->name ?? 'Admin' }}</h1>
+            <p class="mt-2 text-white/80">Pantau dan kelola seluruh aktivitas magang</p>
+        </div>
+
+        <!-- blur circle -->
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
     </div>
 
-    <!-- Statistics Cards -->
+    <!-- STAT GRID -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Row 1 -->
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-yellow-100 text-yellow-600">
-                    <i class="fas fa-clock text-2xl"></i>
+
+        <!-- CARD -->
+        <div class="relative bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/40 hover:scale-[1.02] transition">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500 text-sm">Menunggu</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ $statistics['menunggu_konfirmasi'] }}</h2>
                 </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Menunggu Konfirmasi</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['menunggu_konfirmasi'] }}</p>
+                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-yellow-100 text-yellow-600">
+                    <i class="fas fa-clock"></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-green-100 text-green-600">
-                    <i class="fas fa-check-circle text-2xl"></i>
+        <div class="relative bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500 text-sm">Disetujui</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ $statistics['permohonan_disetujui'] }}</h2>
                 </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Permohonan Disetujui</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['permohonan_disetujui'] }}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-red-100 text-red-600">
-                    <i class="fas fa-times-circle text-2xl"></i>
-                </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Permohonan Ditolak</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['permohonan_ditolak'] }}</p>
+                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 text-green-600">
+                    <i class="fas fa-check"></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-blue-100 text-blue-600">
-                    <i class="fas fa-edit text-2xl"></i>
+        <div class="relative bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500 text-sm">Ditolak</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ $statistics['permohonan_ditolak'] }}</h2>
                 </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Revisi Permohonan</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['revisi_permohonan'] }}</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Row 2 -->
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-indigo-100 text-indigo-600">
-                    <i class="fas fa-user-graduate text-2xl"></i>
-                </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Magang Berjalan</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['magang_berjalan'] }}</p>
+                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-red-100 text-red-600">
+                    <i class="fas fa-times"></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-emerald-100 text-emerald-600">
-                    <i class="fas fa-flag-checkered text-2xl"></i>
-                </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Magang Selesai</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['magang_selesai'] }}</p>
-                </div>
-            </div>
+        <div class="relative bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition">
+    <div class="flex justify-between items-center">
+        <div>
+            <p class="text-gray-500 text-sm">Magang Berjalan</p>
+            <h2 class="text-3xl font-bold text-gray-800">
+                {{ $statistics['magang_berjalan'] }}
+            </h2>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-6 transform transition-transform hover:scale-105 lg:col-span-2">
-            <div class="flex items-center">
-                <div class="p-4 rounded-full bg-purple-100 text-purple-600">
-                    <i class="fas fa-file-alt text-2xl"></i>
-                </div>
-                <div class="ml-4">
-                    <h2 class="text-gray-600 text-sm font-medium mb-1">Total Permohonan</h2>
-                    <p class="text-2xl font-bold text-gray-800">{{ $statistics['total_permohonan'] }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Applications -->
-    <div class="bg-white rounded-lg shadow-sm p-6">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">Permohonan Menunggu Konfirmasi</h3>
-            <a href="{{ route('admin.pelamar') }}" class="text-blue-600 hover:text-blue-700 font-medium transition">
-                Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
-            </a>
-        </div>
-
-        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead>
-                    <tr class="bg-blue-600 text-white">
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase">Nama</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase">Asal Universitas</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase">Jurusan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase">Tanggal Pengajuan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase">Periode Magang</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse ($recentApplications as $application)
-                    <tr class="hover:bg-gray-100 transition">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">{{ $application->nama }}</div>
-                            <div class="text-sm text-gray-500">{{ $application->email }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                            {{ $application->asal_sekolah }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                            {{ $application->jurusan }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                            {{ $application->created_at->format('d M Y') }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                            <div class="flex flex-col">
-                                <span class="text-gray-900 font-medium">Mulai: {{ \Carbon\Carbon::parse($application->tanggal_mulai)->format('d M Y') }}</span>
-                                <span class="text-gray-500">Selesai: {{ \Carbon\Carbon::parse($application->tanggal_selesai)->format('d M Y') }}</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                            <a href="{{ route('admin.detail.pelamar', $application->id) }}" 
-                               class="bg-blue-500 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-blue-600 transition">
-                                Detail
-                            </a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">
-                            Tidak ada permohonan yang menunggu konfirmasi
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-600">
+            <i class="fas fa-user-clock"></i>
         </div>
     </div>
 </div>
+
+<div class="relative bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition">
+    <div class="flex justify-between items-center">
+        <div>
+            <p class="text-gray-500 text-sm">Alumni</p>
+            <h2 class="text-3xl font-bold text-gray-800">
+                {{ $statistics['magang_selesai'] }}
+            </h2>
+        </div>
+
+        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 text-green-600">
+            <i class="fas fa-user-graduate"></i>
+        </div>
+    </div>
+</div>
+
+        <div class="relative bg-white/70 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-gray-500 text-sm">Total</p>
+                    <h2 class="text-3xl font-bold text-gray-800">{{ $statistics['total_permohonan'] }}</h2>
+                </div>
+                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                    <i class="fas fa-file"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LIST STYLE (GANTI TABLE JADI CARD LIST) -->
+    <div class="space-y-4">
+
+        <div class="flex justify-between items-center">
+            <h3 class="text-xl font-bold text-gray-800">Permohonan Terbaru</h3>
+            <a href="{{ route('admin.pelamar') }}" class="text-blue-600 text-sm hover:underline">
+                Lihat Semua →
+            </a>
+        </div>
+
+        @forelse ($recentApplications as $application)
+        <div class="bg-white rounded-2xl shadow-sm p-5 flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-md transition">
+
+            <div>
+                <h4 class="font-semibold text-gray-800">{{ $application->nama }}</h4>
+                <p class="text-sm text-gray-500">{{ $application->email }}</p>
+                <p class="text-sm text-gray-400 mt-1">
+                    {{ $application->asal_sekolah }} • {{ $application->jurusan }}
+                </p>
+            </div>
+
+            <div class="mt-3 md:mt-0 text-sm text-gray-600">
+                <div>{{ $application->created_at->format('d M Y') }}</div>
+                <div class="text-xs text-gray-400">
+                    {{ \Carbon\Carbon::parse($application->tanggal_mulai)->format('d M Y') }} - 
+                    {{ \Carbon\Carbon::parse($application->tanggal_selesai)->format('d M Y') }}
+                </div>
+            </div>
+
+            <div class="mt-3 md:mt-0">
+                <a href="{{ route('admin.detail.pelamar', $application->id) }}"
+                   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    Detail
+                </a>
+            </div>
+
+        </div>
+        @empty
+        <div class="text-center text-gray-400 py-10">
+            Belum ada data 😴
+        </div>
+        @endforelse
+
+    </div>
+
+</div>
+
 @endsection

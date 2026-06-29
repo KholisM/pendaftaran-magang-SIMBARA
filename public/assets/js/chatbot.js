@@ -17,7 +17,7 @@ const chatbotData = {
       container.style.display = 'flex';
       // Add welcome message if chat is empty
       if (document.getElementById('chat-messages').children.length === 0) {
-        addBotMessage('Halo! Saya adalah Assistant DINSOS. Ada yang bisa saya bantu tentang program magang?');
+        addBotMessage('Halo! Saya adalah Assistant DISDUKCAPIL. Ada yang bisa saya bantu tentang program magang?');
       }
     } else {
       container.style.display = 'none';

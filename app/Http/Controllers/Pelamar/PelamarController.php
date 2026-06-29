@@ -79,12 +79,12 @@ if ($request->filled('tanggal_selesai')) {
 
 
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'asal_sekolah' => 'required|string|max:255',
-            'jurusan' => 'required|string|max:255',
-            'semester' => 'required|integer|min:1|max:14',
-            'bagian_divisi' => 'required|string|max:255',
+            'nama' => 'required|string|max:32',
+            'email' => 'required|string|email|max:50',
+            'asal_sekolah' => 'required|string|max:50',
+            'jurusan' => 'required|string|max:50',
+            'semester' => 'required|integer|min:1|max:2',
+            'bagian_divisi' => 'required|string|max:32',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'surat_pengantar' => 'required|file|mimes:pdf|max:2048',

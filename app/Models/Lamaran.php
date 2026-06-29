@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\Posisi;
 
 class Lamaran extends Model
 {
@@ -66,4 +67,10 @@ class Lamaran extends Model
     {
         return $this->hasOneThrough(Biodata::class, User::class, 'id', 'user_id', 'user_id', 'id');
     }
+
+
+  public function posisi()
+{
+    return $this->belongsTo(Posisi::class, 'posisi_id');
+}
 }
